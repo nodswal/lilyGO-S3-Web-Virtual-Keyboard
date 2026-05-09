@@ -9,30 +9,19 @@
 
 bool connectWiFi()
 {
-	LogSerial.printf("[WiFi] Connecting to \"%s\"...", WIFI_SSID);
+    LogSerial.printf("[WiFi] Starting AP mode: \"%s\" ...\r\n", WIFI_SSID);
 
-	WiFi.setHostname(HOSTNAME);
-	WiFi.mode(WIFI_MODE_STA);
-	WiFi.begin(WIFI_SSID, WIFI_PASS);
+    WiFi.setHostname(HOSTNAME);
+    WiFi.mode(WIFI_MODE_AP);
+    WiFi.softAP(WIFI_SSID, WIFI_PASS);
 
-	const uint32_t start = millis();
+    LogSerial.printf("[WiFi] AP Started! IP: %s\r\n", WiFi.softAPIP().toString().c_str());
+    
+#if ENABLE_DISPLAY
+    display_write_word(COLOR_OK, Align::RIGHT, 5, WiFi.softAPIP().toString().c_str());
+#endif
 
-	while (WiFi.status() != WL_CONNECTED && (millis() - start) < 20000U)
-	{
-		delay(250);
-		LogSerial.print('.');
-	}
-
-	LogSerial.print("\r\n");
-
-	if (WiFi.status() == WL_CONNECTED)
-	{
-		LogSerial.printf("[WiFi] OK: %s\r\n", WiFi.localIP().toString().c_str());
-		return true;
-	}
-
-	LogSerial.print("[WiFi] FAILED (timeout).\r\n");
-	return false;
+    return true;
 }
 
 // ---------- Setup / Loop ----------
