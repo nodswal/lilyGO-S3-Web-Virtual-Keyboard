@@ -30,9 +30,11 @@
     - `html.cpp` and `html.h` are automatically generated during the build (from `web/index.html`)
 
 - Plug native USB into the target machine (and UART to the other machine, if you want to check IP or logs)
-    - If connection to Wi-Fi is successful, IP of the device is shown on display (and printed over UART)
+    - A Wi-Fi connection will be available to connect to, it is also printed on the LILYGO ESP32 T-Dongle S3.
+    - On Android it will prompt you to stay connected to the Wi-Fi even without internet, this is suggested before proceeding.
+    - It will give you an ip address of 192.168.4.2, and the Web interface will be http:\\192.168.4.1, and continue to site.
 
-- In browser you can now access device by `http://DEVICE_IP` (default port is 80)
+- In browser you can now access device by `http://192.168.4.1` (default port is 80)
 
 
 <img width="1230" height="560" alt="pic" src="https://github.com/user-attachments/assets/e1dac6ce-4c9d-4045-87dd-af628fd6060f" />
